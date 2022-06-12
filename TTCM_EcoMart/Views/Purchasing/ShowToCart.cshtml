@@ -1,0 +1,127 @@
+﻿@model TTCM_EcoMart.Models.Cart
+
+@{
+    ViewBag.Title = "ShowToCart";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+@if(Model != null)
+{
+    <section class="page-title-area" data-background="assets/img/bg/page-title-bg.jpg">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="page-title-wrapper text-center">
+                     <h1 class="page-title mb-10">My Cart</h1>
+                     <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                           <ul class="trail-items">
+                              <li class="trail-item trail-begin"><a href="index.html"><span>Home</span></a></li>
+                              <li class="trail-item trail-end"><span>Cart</span></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- page title area end  -->
+
+      <!-- cart area start  -->
+      <section class="cart-area pt-100 pb-100">
+         <div class="container container-small">
+            <div class="row">
+               <div class="col-12">
+                  <div class="table-content table-responsive">
+                     <table class="table">
+                        <thead>
+                           <tr>
+                              <th class="product-thumbnail">Images</th>
+                              <th class="cart-product-name">Product</th>
+                              <th class="product-price">Unit Price</th>
+                              <th class="product-quantity">Quantity</th>
+                              <th class="product-subtotal">Total</th>
+                              <th class="product-remove">Remove</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @foreach (var item in Model.Items)
+                           {
+                               double total = Convert.ToDouble(item.shopping_product.prices * item.shopping_quantity);
+                            <tr>
+                                <td class="product-thumbnail">
+                                    <a href="shop-details.html">
+                                        <img src="@Url.Content("~/assets/img/product/Adidas/"+ item.shopping_product.ImagePath)" alt="img">
+                                    </a>
+                                </td>
+                                
+                                <td class="product-name"><a href="shop-details.html">@item.shopping_product.product_Name</a></td>
+                                <td class="product-price"><span class="amount">@item.shopping_product.prices</span></td>
+                                <td class="product-quantity text-center">
+                                    <div class="product-quantity mt-10 mb-10">
+
+                                        <div class="product-quantity-form">
+                                            @using (Html.BeginForm("Update_Quantity_Cart", "Purchasing"))
+                                            {
+                                                <form action="#">
+
+                                                    @*<button class="cart-minus"><i class="far fa-minus"></i></button>*@
+
+                                                    <input type="hidden" value="@item.shopping_product.product_ID" name="id_product">
+                                                    <input class="cart-input" type="number" value="@item.shopping_quantity" name="Quantity">
+                                                    <input class="" type="submit" value="Update Quantity" />
+                                                    @*<button class="cart-plus"><i class="far fa-plus"></i></button>*@
+                                                </form>
+                                            }
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td class="product-subtotal"><span class="amount">@total</span></td>
+                                <td class="product-remove"><a href="@Url.Action("RemoveCart", "Purchasing", new { id = item.shopping_product.product_ID })"><i class="fa fa-times"></i></a></td>
+                            </tr>
+                               
+                           }
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="row">
+                     <div class="col-12">
+                        <div class="coupon-all">
+                           <div class="coupon d-flex align-items-center">
+                              <input id="coupon_code" class="input-text" name="coupon_code" value=""
+                                 placeholder="Coupon code" type="text">
+                              <button class="fill-btn" name="apply_coupon" type="submit">Apply
+                                 coupon</button>
+                           </div>
+                           <div class="coupon2">
+                              <button onclick="window.location.reload()" class="fill-btn" name="update_cart"
+                                 type="submit">Update cart</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-5 ml-auto">
+                         <div class="cart-page-total">
+                             <h2>Cart totals</h2>
+                             <ul class="mb-20">
+                                 <li>Subtotal <span>$78.00</span></li>
+                                 <li>Total <span>@Model.Total_money()</span></li>
+                             </ul>
+                             @using (Html.BeginForm("CheckOut", "Purchasing"))
+                             {
+                                 @*<a class="border-btn" href="@Url.Action("Checkout", "Purchasing", new {@id = item.shopping_product.product_ID})">Proceed to checkout</a>*@
+                                 @*@Html.ActionLink("Proceed to checkout", "Checkout", "Purchasing", new { @class = "border-btn" })*@
+                                <button class="border-btn">Proceed to checkout</button>
+                             }
+                             </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- cart area end  -->
+}

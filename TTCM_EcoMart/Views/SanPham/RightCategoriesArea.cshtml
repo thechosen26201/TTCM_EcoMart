@@ -1,0 +1,9 @@
+﻿@using TTCM_EcoMart.Models;
+@model List<tblCategory>
+
+@foreach(var item in ViewBag.CategoryData) { 
+    <a href="@Url.Action("Selected_products", "SanPham", new {@Category_ID = item.Category_ID, @Gender = item.Gender})" class="category-item">
+            <div class="category-name">@item.Kinds</div> 
+    </a>
+
+}

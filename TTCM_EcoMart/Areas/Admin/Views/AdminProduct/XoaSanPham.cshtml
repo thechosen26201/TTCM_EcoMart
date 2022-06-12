@@ -1,0 +1,90 @@
+﻿@model TTCM_EcoMart.Models.tblProduct
+
+@{
+    ViewBag.Title = "XoaSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>XoaSanPham</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tblProduct</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.product_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prices)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prices)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
